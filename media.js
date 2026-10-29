@@ -1,0 +1,1 @@
+window.MEDIA = { imagenes: ["media/img1.jpg", "media/img2.jpg", "media/img3.jpg", "media/img4.jpg", "media/img5.jpg", "media/img6.jpg", "media/img7.jpg", "media/img8.jpg", "media/img9.jpg", "media/img10.jpg", "media/img11.jpg"], sonidos: ["media/sonido1.mp3", "media/sonido2.mp3"] };
