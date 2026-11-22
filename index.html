@@ -4,8 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Michael Cam</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- las fuentes no bloquean el primer pintado -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=IBM+Plex+Mono:wght@400;600&display=swap" media="print" onload="this.media='all'">
 <style>
   /* Escritorio oscuro; la cámara flota en una esquina y las fotos saltan como ventanas */
   :root {
@@ -126,7 +129,7 @@
     <h1>Michael Cam</h1>
     <p>Pon un móvil delante de la cámara y la pantalla se llena de <strong>Michael Jackson</strong>. Suéltalo y desaparece.</p>
     <button id="empezar">Activar cámara</button>
-    <div id="estado">Funciona en móvil y ordenador (Chrome, Edge o Safari). El vídeo no sale de tu dispositivo.</div>
+    <div id="estado">Preparando el detector mientras lees…</div>
   </div>
 </div>
 
@@ -139,7 +142,11 @@
 </div>
 <button id="fs" hidden>Pantalla completa</button>
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+<!-- solo las piezas de TensorFlow que usa el detector (~130 KB comprimidos menos que tf.min.js) -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@4.22.0/dist/tf-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu@4.22.0/dist/tf-backend-cpu.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@4.22.0/dist/tf-converter.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl@4.22.0/dist/tf-backend-webgl.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
 <script src="media.js"></script>
 <script>
@@ -152,7 +159,38 @@ const MS_ENTRE_VENTANAS = 250;
 const $ = (id) => document.getElementById(id);
 const video = $("video"), lienzo = $("lienzo"), ctx = lienzo.getContext("2d");
 const escritorio = $("escritorio");
-const sonidos = MEDIA.sonidos.map((s) => { const a = new Audio(s); a.loop = true; a.preload = "auto"; return a; });
+const sonidos = MEDIA.sonidos.map((s) => { const a = new Audio(s); a.loop = true; a.preload = "none"; return a; });
+// Modelo SSDLite MobileNet v2 de coco-ssd con pesos en float16 (9 MB en vez de 18 MB),
+// servido desde el propio sitio y guardado en el navegador tras la primera visita.
+const MODELO_URL = "modelo/model.json";
+const MODELO_CACHE = "indexeddb://michael-cam-ssdlite-f16-v1";
+let modeloListo = cargarModelo();
+modeloListo.then(
+  () => { if (!$("empezar").disabled) $("estado").textContent = "Detector listo. El vídeo no sale de tu dispositivo."; },
+  () => {}
+);
+
+async function cargarModelo() {
+  await tf.setBackend("webgl").catch(() => {});
+  await tf.ready();
+  let det;
+  try {
+    det = await cocoSsd.load({ base: "lite_mobilenet_v2", modelUrl: MODELO_CACHE });
+  } catch {
+    det = await cocoSsd.load({ base: "lite_mobilenet_v2", modelUrl: MODELO_URL });
+    det.model.save(MODELO_CACHE).catch(() => {});
+  }
+  // calienta la GPU para que la primera detección real no se atasque compilando shaders
+  const vacio = tf.zeros([1, 480, 640, 3], "int32");
+  const salidas = await det.model.executeAsync(vacio);
+  tf.dispose([vacio, ...[].concat(salidas)]);
+  return det;
+}
+
+function precargarImagenes() {
+  for (const src of MEDIA.imagenes) { const i = new Image(); i.decoding = "async"; i.src = src; }
+}
+
 let modelo, seguidos = 0, ultimoVisto = 0, ultimaVentana = 0, abiertas = 0, sonando = null;
 
 let camara = "user", stream = null, cambiando = false;
@@ -181,8 +219,9 @@ $("empezar").onclick = async () => {
     await abrirCamara();
     // desbloquea el audio con este toque
     for (const a of sonidos) { a.muted = true; a.play().then(() => { a.pause(); a.currentTime = 0; a.muted = false; }).catch(() => {}); }
-    $("estado").textContent = "Cargando el detector (solo la primera vez tarda un poco)…";
-    modelo = await cocoSsd.load({ base: "lite_mobilenet_v2" });
+    $("estado").textContent = "Terminando de cargar el detector…";
+    modelo = await modeloListo.catch(() => (modeloListo = cargarModelo()));
+    precargarImagenes();
     $("intro").hidden = true;
     $("cam").hidden = false;
     $("fs").hidden = !document.documentElement.requestFullscreen;
