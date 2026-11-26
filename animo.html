@@ -2,7 +2,7 @@
 <html lang="es">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Para mi valiente</title>
+<title>Para Ashley</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800&family=Caveat:wght@600&display=swap">
@@ -217,9 +217,9 @@
         <path d="M30 96 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#7ad9bd"/>
       </svg>
     </button>
-    <div class="bubble" id="bubble" aria-live="polite">¡Hola, mi amor! Tócame 💕</div>
-    <h1>Eres la más valiente</h1>
-    <p class="lead">Te hicieron un recorte de encías y aquí estás, resistiendo como una campeona. Esta página es toda tuya: tócalo todo, cada cosa esconde un mimo.</p>
+    <div class="bubble" id="bubble" aria-live="polite">¡Hola, Ashley! Tócame 💕</div>
+    <h1>Ashley, eres la más valiente</h1>
+    <p class="lead">Te hicieron un recorte de encías y aquí estás, resistiendo como una campeona. Esta página es toda tuya, Ashley: tócalo todo, cada cosa esconde un mimo.</p>
     <p class="hint">Pasa el dedo o el mouse por la pantalla ✨</p>
   </section>
 
@@ -256,7 +256,7 @@
   <!-- VALES -->
   <section class="panel">
     <span class="eyebrow">Estación 3 · Vales de mimos</span>
-    <h2>Vales canjeables, sin fecha de vencimiento</h2>
+    <h2>Vales de Daniel, sin fecha de vencimiento</h2>
     <p class="lead">Voltea cada vale para ver tu premio. Cuando lo quieras, aprieta "Canjear" y yo cumplo.</p>
     <div class="coupons" id="coupons"></div>
   </section>
@@ -294,7 +294,7 @@
   <!-- CARTA -->
   <section class="panel">
     <span class="eyebrow">Estación 6 · Correo para ti</span>
-    <h2>Tienes una carta</h2>
+    <h2>Tienes una carta de Daniel</h2>
     <button class="env-btn" id="env" aria-label="Abrir la carta">
       <svg viewBox="0 0 300 190" aria-hidden="true">
         <rect x="6" y="20" width="288" height="164" rx="14" fill="#ffd0de" stroke="#f78fb0" stroke-width="4"/>
@@ -307,8 +307,8 @@
   </section>
 
   <footer>
-    <b>Pronto vas a sonreír sin dolor</b>
-    y esa sonrisa va a estar más bonita que nunca. Te amo.
+    <b>Pronto vas a sonreír sin dolor, Ashley</b>
+    y esa sonrisa va a estar más bonita que nunca. Te amo.<br>Con amor, <b style="display:inline;font-size:1rem">Daniel</b>
   </footer>
 </main>
 
@@ -370,7 +370,7 @@
 
   /* ===== Dientito que habla ===== */
   const frases = [
-    '¡Eres mi persona favorita! 💖', 'Tu sonrisa va a quedar divina ✨', 'Respira, ya pasó lo más difícil',
+    '¡Ashley, eres mi persona favorita! 💖', 'Ash, eres la más bonita 🌸', 'Daniel te manda un besito 💋', 'Daniel dice que te extraña', 'Tu sonrisa va a quedar divina ✨', 'Respira, ya pasó lo más difícil',
     'Helado autorizado por el dientito 🍦', 'Hoy toca dejarse consentir', 'Hablas raro y me encantas igual',
     'Cada día duele un poquito menos', 'Valiente nivel: máximo 🦷', 'Un besito en la frente (ahí no duele)',
     'Te amo de aquí a la luna', 'Descansa, yo cuido todo', 'La encía más bonita del mundo'
@@ -422,7 +422,7 @@
     'Porque eres hermosa por dentro y por fuera (con o sin hinchazón).', 'Porque haces que todo se sienta como casa.',
     'Porque te preocupas por todos, y hoy me toca cuidarte a ti.', 'Porque tus abrazos curan más que cualquier pastilla.',
     'Porque eres mi lugar favorito.', 'Porque tienes la sonrisa más linda que he visto.',
-    'Porque me haces querer ser mejor cada día.', 'Porque eres tú, y con eso basta.',
+    'Porque me haces querer ser mejor cada día.', 'Porque eres Ashley, y con eso basta.',
     'Porque hasta enojada te ves tierna.', 'Porque elegirte es lo más fácil que hago.',
     'Porque quiero muchos años más de ti.'
   ];
@@ -522,7 +522,7 @@
   updChecks(false);
 
   /* ===== Carta ===== */
-  const carta = `Mi amor:
+  const carta = `Mi Ashley hermosa:
 
 Sé que estos días no son fáciles. Te duele, no puedes comer lo que quieres y hasta hablas un poquito raro… y aun así sigues siendo la persona más bonita que conozco.
 
@@ -532,7 +532,10 @@ Prometo cuidarte, traerte helado, hacerte reír (despacito, para que no duela) y
 
 Muy pronto vas a sonreír sin molestias, y esa sonrisa va a ser todavía más linda.
 
-Te amo muchísimo. 💗`;
+Te amo muchísimo. 💗
+
+Tuyo siempre,
+Daniel`;
   const env = document.getElementById('env'), letter = document.getElementById('letter');
   let typed = false;
   env.addEventListener('click', () => {
