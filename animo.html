@@ -217,8 +217,9 @@
         <path d="M30 96 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#7ad9bd"/>
       </svg>
     </button>
-    <div class="bubble" id="bubble" aria-live="polite">¡Hola, Ashley! Tócame 💕</div>
+    <div class="bubble" id="bubble" aria-live="polite">¡Hola, amoricto! Tócame 💕</div>
     <h1>Ashley, eres la más valiente</h1>
+    <p class="bubble" style="box-shadow:none;min-height:0;font-size:1.25rem" aria-live="off">también conocida como <span id="apodo" style="font-family:var(--hand);font-size:1.8rem;color:var(--ink);margin-left:6px">mi amur</span></p>
     <p class="lead">Te hicieron un recorte de encías y aquí estás, resistiendo como una campeona. Esta página es toda tuya, Ashley: tócalo todo, cada cosa esconde un mimo.</p>
     <p class="hint">Pasa el dedo o el mouse por la pantalla ✨</p>
   </section>
@@ -230,7 +231,7 @@
       <button class="hug-btn" id="hug" aria-label="Mantén presionado para cargar un abrazo"><span id="hug-label">Mantén presionado</span></button>
       <div>
         <h2>Carga un abrazo</h2>
-        <p class="lead" id="hug-msg">Deja el dedo apretado hasta llenar el círculo. Es un abrazo suavecito, de esos que no aprietan la carita.</p>
+        <p class="lead" id="hug-msg">Deja el dedo apretado hasta llenar el círculo. Es un abrazo suavecito para mi niña, de esos que no aprietan la carita.</p>
       </div>
     </div>
   </section>
@@ -370,7 +371,7 @@
 
   /* ===== Dientito que habla ===== */
   const frases = [
-    '¡Ashley, eres mi persona favorita! 💖', 'Ash, eres la más bonita 🌸', 'Daniel te manda un besito 💋', 'Daniel dice que te extraña', 'Tu sonrisa va a quedar divina ✨', 'Respira, ya pasó lo más difícil',
+    '¡Ashley, eres mi persona favorita! 💖', 'Ash, eres la más bonita 🌸', 'Daniel te manda un besito 💋', 'Daniel dice que te extraña', 'Mi amur, ya falta poquito', 'Amoricto, eres la más fuerte 💪', 'Mi niña linda, todo va a estar bien', 'Mi amur, tu sonrisa es mi favorita', 'Tu sonrisa va a quedar divina ✨', 'Respira, ya pasó lo más difícil',
     'Helado autorizado por el dientito 🍦', 'Hoy toca dejarse consentir', 'Hablas raro y me encantas igual',
     'Cada día duele un poquito menos', 'Valiente nivel: máximo 🦷', 'Un besito en la frente (ahí no duele)',
     'Te amo de aquí a la luna', 'Descansa, yo cuido todo', 'La encía más bonita del mundo'
@@ -418,13 +419,13 @@
   /* ===== Frasco de razones ===== */
   const razones = [
     'Porque tu risa arregla mis días malos.', 'Porque eres valiente incluso cuando tienes miedo.',
-    'Porque me miras como si yo fuera lo mejor.', 'Porque contigo hasta el silencio es bonito.',
+    'Porque me miras como si yo fuera lo mejor.', 'Porque contigo hasta el silencio es bonito, mi amur.',
     'Porque eres hermosa por dentro y por fuera (con o sin hinchazón).', 'Porque haces que todo se sienta como casa.',
     'Porque te preocupas por todos, y hoy me toca cuidarte a ti.', 'Porque tus abrazos curan más que cualquier pastilla.',
-    'Porque eres mi lugar favorito.', 'Porque tienes la sonrisa más linda que he visto.',
+    'Porque eres mi lugar favorito, amoricto.', 'Porque tienes la sonrisa más linda que he visto.',
     'Porque me haces querer ser mejor cada día.', 'Porque eres Ashley, y con eso basta.',
     'Porque hasta enojada te ves tierna.', 'Porque elegirte es lo más fácil que hago.',
-    'Porque quiero muchos años más de ti.'
+    'Porque quiero muchos años más contigo, mi niña.'
   ];
   const jar = document.getElementById('jar'), note = document.getElementById('note'), jarHearts = document.getElementById('jar-hearts');
   let bolsa = [];
@@ -478,9 +479,9 @@
         painMsg = document.getElementById('pain-msg'), pm = document.getElementById('pain-mouth'), tear = document.getElementById('pain-tear');
   const painTexts = [
     [0, '¡Nada de dolor! Eres una máquina. Igual te mereces un helado de premio.'],
-    [3, 'Poquito, ¿no? Vas súper bien. Sigue con comidas blanditas y frías.'],
-    [6, 'Ay, mi amor. Hielito por fuera, a descansar y te mando un abrazo ahora mismo.'],
-    [8, 'Eso duele de verdad. Toma lo que te recetaron a su hora y llámame, voy para allá con mimos.'],
+    [3, 'Poquito, ¿no, mi amur? Vas súper bien. Sigue con comidas blanditas y frías.'],
+    [6, 'Ay, amoricto. Hielito por fuera, a descansar y te mando un abrazo ahora mismo.'],
+    [8, 'Eso duele de verdad, mi niña. Toma lo que te recetaron a su hora y llámame, voy para allá con mimos.'],
     [10, 'Mucho dolor no es normal: avísale a tu periodoncista, y a mí también. No estás sola.']
   ];
   function updatePain() {
@@ -515,7 +516,7 @@
   function updChecks(anim) {
     const n = tareas.filter((_, i) => estado.v[i]).length, pct = n / tareas.length * 100;
     bar.style.width = pct + '%';
-    cmsg.textContent = n === tareas.length ? '¡Día completado! Eres oficialmente la mejor paciente del universo 🏆'
+    cmsg.textContent = n === tareas.length ? '¡Día completado, amoricto! Eres oficialmente la mejor paciente del universo 🏆'
       : n === 0 ? 'Vamos de a poquito, sin prisa.' : `${n} de ${tareas.length}. ¡Vas genial!`;
     if (anim && n === tareas.length) rain(80);
   }
@@ -524,15 +525,15 @@
   /* ===== Carta ===== */
   const carta = `Mi Ashley hermosa:
 
-Sé que estos días no son fáciles. Te duele, no puedes comer lo que quieres y hasta hablas un poquito raro… y aun así sigues siendo la persona más bonita que conozco.
+Sé que estos días no son fáciles. Te duele, no puedes comer lo que quieres y hasta hablas un poquito raro… y aun así sigues siendo la persona más bonita que conozco, mi amur.
 
-Fuiste muy valiente al hacerte este tratamiento y me llenas de orgullo.
+Mi niña, fuiste muy valiente al hacerte este tratamiento y me llenas de orgullo.
 
 Prometo cuidarte, traerte helado, hacerte reír (despacito, para que no duela) y estar contigo en cada día de la recuperación.
 
 Muy pronto vas a sonreír sin molestias, y esa sonrisa va a ser todavía más linda.
 
-Te amo muchísimo. 💗
+Te amo muchísimo, amoricto. 💗
 
 Tuyo siempre,
 Daniel`;
@@ -550,6 +551,11 @@ Daniel`;
       step();
     }, 500);
   });
+
+  // Apodos que van cambiando
+  const apodos = ['mi amur', 'amoricto', 'mi niña', 'Ash'], apEl = document.getElementById('apodo');
+  let ai = 0;
+  if (!reduce) setInterval(() => { ai = (ai + 1) % apodos.length; apEl.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-8px)' }], { duration: 200 }).onfinish = () => { apEl.textContent = apodos[ai]; apEl.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 250 }); }; }, 2200);
 
   // Bienvenida
   setTimeout(() => rain(35), 400);
